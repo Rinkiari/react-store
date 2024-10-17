@@ -1,11 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 
 function Kboard({ imageUrl, title, switches, price }) {
+  const [activeSwitch, setActiveSwitch] = useState(switches[0]);
+
+  const handleSwitchClick = (switchType) => {
+    setActiveSwitch(switchType);
+  };
+
   return (
     <div style={styles.card}>
       <img src={imageUrl} alt={title} style={styles.image} />
       <div style={styles.content}>
         <h2 style={styles.title}>{title}</h2>
+        <div style={styles.switchesPanel}>
+          {switches.map((switchType, index) => (
+            <span
+              key={index}
+              onClick={() => handleSwitchClick(switchType)}
+              style={{
+                ...styles.switch,
+                ...(activeSwitch === switchType && styles.switchActive),
+              }}
+            >
+              {switchType}
+            </span>
+          ))}
+        </div>
         <p style={styles.price}>${price}</p>
         <button style={styles.button}>Добавить в корзину</button>
       </div>
@@ -35,10 +55,24 @@ const styles = {
     fontSize: "20px",
     margin: "0 0 10px 0",
   },
-  description: {
+  switchesPanel: {
+    display: "flex",
+    justifyContent: "center",
+    marginBottom: "10px",
+  },
+  switch: {
+    backgroundColor: "#f0f0f0",
+    borderRadius: "4px",
+    padding: "5px 10px",
+    margin: "0 5px",
     fontSize: "14px",
-    color: "#777",
-    margin: "0 0 10px 0",
+    color: "#333",
+    cursor: "pointer",
+    transition: "background-color 0.3s ease",
+  },
+  switchActive: {
+    backgroundColor: "#8a2be2", // Фиолетовый цвет для активного свитча
+    color: "#fff",
   },
   price: {
     fontSize: "18px",

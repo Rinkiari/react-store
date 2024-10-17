@@ -14,12 +14,7 @@ function App() {
       <Sort />
       <div className="container">
         {keyboards.map((obj) => (
-          <Kboard
-            title={obj.title}
-            imageUrl={obj.imageUrl}
-            switches={obj.switches}
-            price={obj.price}
-          />
+          <Kboard {...obj} />
         ))}
       </div>
     </>
