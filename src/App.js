@@ -1,24 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./scss/app.scss";
+import keyboards from "./assets/keyboards.json";
+
+import Kboard from "./components/kboard";
+import Sort from "./components/sort";
+
+console.log(keyboards);
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <h1>#1 Keyboard Store</h1>
+      <Sort />
+      <div className="container">
+        {keyboards.map((obj) => (
+          <Kboard
+            title={obj.title}
+            imageUrl={obj.imageUrl}
+            switches={obj.switches}
+            price={obj.price}
+          />
+        ))}
+      </div>
+    </>
   );
 }
 
