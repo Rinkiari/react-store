@@ -1,0 +1,54 @@
+.sort {
+  position: relative;
+  display: inline-block;
+
+  &__label {
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+
+    span {
+      margin-left: 5px;
+      color: #75b6fb;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    span:hover {
+      color: #0056b3;
+    }
+  }
+
+  &__popup {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 150px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+
+    ul {
+      list-style: none;
+      padding: 10px 0;
+      margin: 0;
+
+      li {
+        padding: 10px 15px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+
+        &:hover {
+          background-color: #f0f0f0;
+        }
+
+        &.active {
+          font-weight: bold;
+          color: #007bff;
+        }
+      }
+    }
+  }
+}

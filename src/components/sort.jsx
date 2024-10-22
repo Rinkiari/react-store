@@ -1,50 +1,39 @@
-import React from "react";
+import React from 'react';
+import '../scss/components/sort.scss';
 
 const Sort = () => {
-  const [activeIndex, setActiveIndex] = React.useState(0);
+  const [isVisible, setVisibility] = React.useState(false);
+  const [selected, setSelected] = React.useState(0);
+  const list = ['популярности', 'цене', 'алфавиту'];
+  const sortName = list[selected];
 
-  const categoriesArr = ["Все", "Новые", "Популярные", "Старые"];
-
-  const onSort = (int) => {
-    setActiveIndex(int);
+  const onClickListItem = (i) => {
+    setSelected(i);
+    setVisibility(false);
   };
 
   return (
-    <div style={styles.container}>
-      {categoriesArr.map((el, i) => (
-        <button
-          style={styles.button}
-          className={activeIndex === i ? "active" : ""}
-          onClick={() => onSort(i)}
-        >
-          {el}
-        </button>
-      ))}
+    <div className="sort">
+      <div className="sort__label">
+        <b>Сортировать по:</b>
+        <span onClick={() => setVisibility(!isVisible)}>{sortName}</span>
+      </div>
+      {isVisible && (
+        <div className="sort__popup">
+          <ul>
+            {list.map((name, i) => (
+              <li
+                key={i}
+                onClick={() => onClickListItem(i)}
+                className={selected === i ? 'active' : ''}>
+                {name}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
-};
-
-// Пример использования CSS через JS-объект для стилизации
-const styles = {
-  container: {
-    display: "flex",
-    justifyContent: "space-around",
-    padding: "10px",
-    backgroundColor: "#f8f8f8",
-    borderRadius: "8px",
-    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-    margin: "20px 0",
-  },
-  button: {
-    padding: "10px 20px",
-    backgroundColor: "#007bff",
-    color: "#fff",
-    border: "none",
-    borderRadius: "4px",
-    cursor: "pointer",
-    fontSize: "16px",
-    transition: "background-color 0.3s",
-  },
 };
 
 export default Sort;
