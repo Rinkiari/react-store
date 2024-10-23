@@ -1,0 +1,64 @@
+.h_container {
+  width: 95%;
+  margin: 20px auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 4px solid purple;
+}
+
+.left_side {
+  display: flex;
+  align-items: center; /* Заголовок прижмётся к верху */
+}
+
+.header_text {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+}
+
+.title {
+  margin: 0;
+  font-size: 24px;
+}
+
+.subtitle {
+  margin-top: 5px;
+  font-size: 14px;
+  color: rgb(111, 82, 37);
+}
+
+.logo {
+  width: 62px;
+}
+
+.right_side {
+  display: flex;
+  align-items: center;
+}
+
+.cart {
+  width: 22px;
+}
+
+.cart_button {
+  display: flex;
+  align-items: center;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cart_button:hover {
+  background-color: #0056b3;
+}
+
+.cart_button span {
+  margin-right: 10px;
+}

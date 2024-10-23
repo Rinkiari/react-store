@@ -1,12 +1,12 @@
-@import "./libs/normalize";
-@import "./_variables";
+@import './libs/normalize';
+@import './_variables';
 
 body {
   background-color: $background;
 }
 
 .container {
-  min-width: 1100px;
+  max-width: 1400px;
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
