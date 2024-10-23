@@ -7,10 +7,10 @@ import NotFound from './pages/NotFound';
 
 function App() {
   return (
-    <>
+    <div className="app-container">
       <Header />
-      <NotFound />
-    </>
+      <Home />
+    </div>
   );
 }
 export default App;

@@ -24,7 +24,8 @@ const Home = () => {
     <>
       <Categories />
       <Sort />
-      <div className="container">
+
+      <div className="container_cartochek">
         {isLoading
           ? [...new Array(4)].map((_, index) => <Skeleton key={index} />)
           : items.map((obj) => <Kboard key={obj.id} {...obj} />)}

@@ -5,8 +5,14 @@ body {
   background-color: $background;
 }
 
-.container {
-  max-width: 1400px;
+.app-container {
+  max-width: 1400px; /* Ограничение ширины контейнера */
+  margin: 0 auto; /* Центрирование контейнера */
+  border: 2px solid black;
+  border-radius: 8px;
+}
+
+.container_cartochek {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
