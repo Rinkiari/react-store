@@ -5,6 +5,7 @@ import Kboard from '../components/KboardCard/';
 import Skeleton from '../components/KboardCard/Skeleton.jsx';
 import Categories from '../components/Categories';
 import Sort from '../components/Sort.jsx';
+import Loader from '../components/Loader.jsx';
 
 const Home = () => {
   const url = 'https://c09345baae5f2e48.mokky.dev/items';
@@ -26,9 +27,16 @@ const Home = () => {
       <Sort />
 
       <div className="container_cartochek">
-        {isLoading
-          ? [...new Array(4)].map((_, index) => <Skeleton key={index} />)
-          : items.map((obj) => <Kboard key={obj.id} {...obj} />)}
+        {isLoading ? (
+          <>
+            <Loader />
+            {[...new Array(4)].map((_, index) => (
+              <Skeleton key={index} />
+            ))}
+          </>
+        ) : (
+          items.map((obj) => <Kboard key={obj.id} {...obj} />)
+        )}
       </div>
     </>
   );

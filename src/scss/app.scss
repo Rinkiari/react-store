@@ -5,6 +5,11 @@ body {
   background-color: $background;
 }
 
+a {
+  color: inherit; /* Убирает цвет ссылки */
+  text-decoration: none; /* Убирает подчеркивание */
+}
+
 .app-container {
   max-width: 1400px; /* Ограничение ширины контейнера */
   margin: 0 auto; /* Центрирование контейнера */
