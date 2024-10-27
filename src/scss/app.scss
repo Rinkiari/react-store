@@ -6,13 +6,13 @@ body {
 }
 
 a {
-  color: inherit; /* Убирает цвет ссылки */
-  text-decoration: none; /* Убирает подчеркивание */
+  color: inherit;
+  text-decoration: none;
 }
 
 .app-container {
-  max-width: 1400px; /* Ограничение ширины контейнера */
-  margin: 0 auto; /* Центрирование контейнера */
+  max-width: 1400px;
+  margin: 0 auto;
   border: 2px solid black;
   border-radius: 8px;
 }
