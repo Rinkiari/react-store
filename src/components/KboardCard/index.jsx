@@ -8,38 +8,44 @@ function Kboard({ imageUrl, title, switches, price }) {
   };
 
   return (
-    <div style={styles.card}>
-      <img src={imageUrl} alt={title} style={styles.image} />
-      <div style={styles.content}>
-        <h2 style={styles.title}>{title}</h2>
-        <div style={styles.switchesPanel}>
-          {switches.map((switchType, index) => (
-            <span
-              key={index}
-              onClick={() => handleSwitchClick(switchType)}
-              style={{
-                ...styles.switch,
-                ...(activeSwitch === switchType && styles.switchActive),
-              }}>
-              {switchType}
-            </span>
-          ))}
+    <div style={styles.card_wrapper}>
+      <div style={styles.card}>
+        <img src={imageUrl} alt={title} style={styles.image} />
+        <div style={styles.content}>
+          <h2 style={styles.title}>{title}</h2>
+          <div style={styles.switchesPanel}>
+            {switches.map((switchType, index) => (
+              <span
+                key={index}
+                onClick={() => handleSwitchClick(switchType)}
+                style={{
+                  ...styles.switch,
+                  ...(activeSwitch === switchType && styles.switchActive),
+                }}>
+                {switchType}
+              </span>
+            ))}
+          </div>
+          <p style={styles.price}>${price}</p>
+          <button style={styles.button}>Добавить в корзину</button>
         </div>
-        <p style={styles.price}>${price}</p>
-        <button style={styles.button}>Добавить в корзину</button>
       </div>
     </div>
   );
 }
 
 const styles = {
+  card_wrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
   card: {
     border: '1px solid #ccc',
     borderRadius: '8px',
     overflow: 'hidden',
     width: '300px',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-    margin: '20px',
+    margin: '20px 0',
     textAlign: 'center',
   },
   image: {
