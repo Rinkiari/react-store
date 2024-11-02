@@ -11,6 +11,7 @@ const Home = () => {
   const url = 'https://c09345baae5f2e48.mokky.dev/items';
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
+  const [categoryId, setCategoryId] = React.useState(0);
 
   React.useEffect(() => {
     fetch(url)
@@ -19,18 +20,19 @@ const Home = () => {
         setItems(jsonRes);
         setIsLoading(false);
       });
+    window.scrollTo(0, 0);
   }, []);
 
   return (
     <>
-      <Categories />
+      <Categories value={categoryId} onClickCategory={(i) => setCategoryId(i)} />
       <Sort />
 
       <div className="container_cartochek">
         {isLoading ? (
           <>
             <Loader />
-            {[...new Array(4)].map((_, index) => (
+            {[...new Array(7)].map((_, index) => (
               <Skeleton key={index} />
             ))}
           </>

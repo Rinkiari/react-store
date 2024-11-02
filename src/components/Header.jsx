@@ -18,9 +18,9 @@ const Header = () => {
       </Link>
       <div className="right_side">
         <Link to="/cart">
-          <button className="cart_button">
+          <button className="cart_batton">
             <span>$520</span>
-            <img src={shopping_cart} alt="cart" className="cart" />
+            <img src={shopping_cart} alt="cart" className="cartt" />
           </button>
         </Link>
       </div>

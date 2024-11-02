@@ -26,6 +26,10 @@
   margin-top: 5px;
   font-size: 14px;
   color: rgb(111, 82, 37);
+
+  @media (max-width: 390px) {
+    display: none;
+  }
 }
 
 .logo {
@@ -37,11 +41,11 @@
   align-items: center;
 }
 
-.cart {
+.cartt {
   width: 22px;
 }
 
-.cart_button {
+.cart_batton {
   display: flex;
   align-items: center;
   background-color: #007bff;
@@ -54,10 +58,10 @@
   transition: background-color 0.3s ease;
 }
 
-.cart_button:hover {
+.cart_batton:hover {
   background-color: #0056b3;
 }
 
-.cart_button span {
+.cart_batton span {
   margin-right: 10px;
 }

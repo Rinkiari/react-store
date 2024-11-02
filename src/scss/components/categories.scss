@@ -4,12 +4,14 @@
   padding: 6px 0;
   display: flex;
   justify-content: space-around;
+  gap: 2px;
   background-color: #f8f8f8;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: scroll;
 }
 
-.button {
+.buttonn {
   padding: 10px 20px;
   background-color: #007bff;
   color: #fff;
