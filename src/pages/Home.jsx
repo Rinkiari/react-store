@@ -8,20 +8,19 @@ import Sort from '../components/Sort.jsx';
 import Loader from '../components/Loader.jsx';
 
 const Home = () => {
-  const url = 'https://c09345baae5f2e48.mokky.dev/items';
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const [categoryId, setCategoryId] = React.useState(0);
 
   React.useEffect(() => {
-    fetch(url)
+    fetch('https://c09345baae5f2e48.mokky.dev/items?size=' + categoryId)
       .then((res) => res.json())
       .then((jsonRes) => {
         setItems(jsonRes);
         setIsLoading(false);
       });
     window.scrollTo(0, 0);
-  }, []);
+  }, [categoryId]);
 
   return (
     <>
