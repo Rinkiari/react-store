@@ -11,21 +11,32 @@ const Home = () => {
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const [categoryId, setCategoryId] = React.useState(0);
+  const [sortType, setSortType] = React.useState({
+    name: 'популярности',
+    sortProperty: 'rating',
+  });
+
+  console.log(categoryId, sortType);
 
   React.useEffect(() => {
-    fetch('https://c09345baae5f2e48.mokky.dev/items?size=' + categoryId)
+    setIsLoading(true);
+    fetch(
+      `https://c09345baae5f2e48.mokky.dev/items?${
+        categoryId > 0 ? `size=${categoryId}` : ''
+      }&sortBy=${sortType.sortProperty}`,
+    )
       .then((res) => res.json())
       .then((jsonRes) => {
         setItems(jsonRes);
         setIsLoading(false);
       });
     window.scrollTo(0, 0);
-  }, [categoryId]);
+  }, [categoryId, sortType]);
 
   return (
     <>
       <Categories value={categoryId} onClickCategory={(i) => setCategoryId(i)} />
-      <Sort />
+      <Sort value={sortType} onChangeSortType={(i) => setSortType(i)} />
 
       <div className="container_cartochek">
         {isLoading ? (
