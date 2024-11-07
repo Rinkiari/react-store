@@ -8,16 +8,17 @@ import Sort from '../components/Sort.jsx';
 import Loader from '../components/Loader.jsx';
 
 const Home = () => {
-  const [items, setItems] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState(true);
-  const [categoryId, setCategoryId] = React.useState(0);
+  const [items, setItems] = React.useState([]); // состояние товаров
+  const [isLoading, setIsLoading] = React.useState(true); // состояние загрузки
+  const [categoryId, setCategoryId] = React.useState(0); // состояние выбранной категории
   const [sortType, setSortType] = React.useState({
     name: 'популярности',
     sortProperty: 'rating',
-  });
+  }); // состояние выбранной сортировки
 
-  console.log(categoryId, sortType);
+  console.log(categoryId, sortType); // проверка какая сейчас категория и сортировка
 
+  // Отслеживание изменения состояний и запрос на бекэнд с его обработкой
   React.useEffect(() => {
     setIsLoading(true);
     fetch(

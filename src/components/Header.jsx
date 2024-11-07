@@ -1,6 +1,7 @@
 import logo from '../assets/keyboard.png';
 import shopping_cart from '../assets/shopping-cart.png';
 import '../scss/components/header.scss';
+import Search from './Search';
 
 import { Link } from 'react-router-dom';
 
@@ -16,6 +17,7 @@ const Header = () => {
           </div>
         </div>
       </Link>
+      <Search />
       <div className="right_side">
         <Link to="/cart">
           <button className="cart_batton">
