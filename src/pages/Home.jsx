@@ -7,7 +7,7 @@ import Categories from '../components/Categories';
 import Sort from '../components/Sort.jsx';
 import Loader from '../components/Loader.jsx';
 
-const Home = () => {
+const Home = ({ searchValue }) => {
   const [items, setItems] = React.useState([]); // состояние товаров
   const [isLoading, setIsLoading] = React.useState(true); // состояние загрузки
   const [categoryId, setCategoryId] = React.useState(0); // состояние выбранной категории
@@ -16,11 +16,12 @@ const Home = () => {
     sortProperty: 'rating',
   }); // состояние выбранной сортировки
 
-  console.log(categoryId, sortType); // проверка какая сейчас категория и сортировка
+  console.log('Now: ', categoryId, sortType); // проверка какая сейчас категория и сортировка
 
   // Отслеживание изменения состояний и запрос на бекэнд с его обработкой
   React.useEffect(() => {
     setIsLoading(true);
+    console.log('making a request ...');
     fetch(
       `https://c09345baae5f2e48.mokky.dev/items?${
         categoryId > 0 ? `size=${categoryId}` : ''
@@ -29,10 +30,21 @@ const Home = () => {
       .then((res) => res.json())
       .then((jsonRes) => {
         setItems(jsonRes);
+        console.log('Response received');
         setIsLoading(false);
       });
     window.scrollTo(0, 0);
   }, [categoryId, sortType]);
+
+  const keyboards = items
+    .filter((obj) => {
+      if (obj.title.toLowerCase().includes(searchValue.toLowerCase())) {
+        return true;
+      }
+      return false;
+    })
+    .map((obj) => <Kboard key={obj.id} {...obj} />);
+  const skeletons = [...new Array(7)].map((_, index) => <Skeleton key={index} />);
 
   return (
     <>
@@ -43,12 +55,10 @@ const Home = () => {
         {isLoading ? (
           <>
             <Loader />
-            {[...new Array(7)].map((_, index) => (
-              <Skeleton key={index} />
-            ))}
+            {skeletons}
           </>
         ) : (
-          items.map((obj) => <Kboard key={obj.id} {...obj} />)
+          keyboards
         )}
       </div>
     </>

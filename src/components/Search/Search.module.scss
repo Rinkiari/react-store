@@ -19,7 +19,7 @@
   &:focus {
     outline-offset: 5px;
     background-color: #fff;
-    width: 268px;
+    width: 228px;
   }
 }
 
@@ -32,11 +32,15 @@
 }
 
 .crossIcon {
-  width: 19px;
-  height: 19px;
+  width: 16px;
+  height: 16px;
   position: absolute;
   right: 6px;
-  top: 8px;
-  opacity: 0.6;
+  top: 10px;
+  opacity: 0.4;
   cursor: pointer;
+
+  &:hover {
+    opacity: 0.9;
+  }
 }
