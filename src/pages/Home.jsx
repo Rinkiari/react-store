@@ -21,11 +21,12 @@ const Home = ({ searchValue }) => {
   // Отслеживание изменения состояний и запрос на бекэнд с его обработкой
   React.useEffect(() => {
     setIsLoading(true);
+    const search = searchValue ? `&title=*${searchValue}` : '';
     console.log('making a request ...');
     fetch(
       `https://c09345baae5f2e48.mokky.dev/items?${
         categoryId > 0 ? `size=${categoryId}` : ''
-      }&sortBy=${sortType.sortProperty}`,
+      }&sortBy=${sortType.sortProperty}${search}`,
     )
       .then((res) => res.json())
       .then((jsonRes) => {
@@ -34,16 +35,15 @@ const Home = ({ searchValue }) => {
         setIsLoading(false);
       });
     window.scrollTo(0, 0);
-  }, [categoryId, sortType]);
+  }, [categoryId, sortType, searchValue]);
 
-  const keyboards = items
-    .filter((obj) => {
-      if (obj.title.toLowerCase().includes(searchValue.toLowerCase())) {
-        return true;
-      }
-      return false;
-    })
-    .map((obj) => <Kboard key={obj.id} {...obj} />);
+  const keyboards = items.map((obj) => <Kboard key={obj.id} {...obj} />);
+  // .filter((obj) => {
+  //   if (obj.title.toLowerCase().includes(searchValue.toLowerCase())) {
+  //     return true;
+  //   }
+  //   return false;
+  // })
   const skeletons = [...new Array(7)].map((_, index) => <Skeleton key={index} />);
 
   return (
