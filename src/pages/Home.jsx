@@ -5,12 +5,14 @@ import Kboard from '../components/KboardCard/';
 import Skeleton from '../components/KboardCard/Skeleton.jsx';
 import Categories from '../components/Categories';
 import Sort from '../components/Sort.jsx';
-import Loader from '../components/Loader.jsx';
+import Pagination from '../components/Pagination/index.jsx';
 
 const Home = ({ searchValue }) => {
   const [items, setItems] = React.useState([]); // состояние товаров
   const [isLoading, setIsLoading] = React.useState(true); // состояние загрузки
   const [categoryId, setCategoryId] = React.useState(0); // состояние выбранной категории
+  const [currentPage, setCurrentPage] = React.useState(1); //состояние страницы
+  const [totalPages, setTotalPages] = React.useState(1); // состояние общего количества страниц
   const [sortType, setSortType] = React.useState({
     name: 'популярности',
     sortProperty: 'rating',
@@ -24,18 +26,21 @@ const Home = ({ searchValue }) => {
     const search = searchValue ? `&title=*${searchValue}` : '';
     console.log('making a request ...');
     fetch(
-      `https://c09345baae5f2e48.mokky.dev/items?${
+      `https://c09345baae5f2e48.mokky.dev/items?page=${currentPage}&limit=8&${
         categoryId > 0 ? `size=${categoryId}` : ''
       }&sortBy=${sortType.sortProperty}${search}`,
     )
       .then((res) => res.json())
       .then((jsonRes) => {
-        setItems(jsonRes);
+        const items = jsonRes.items;
+        setItems(items);
+        const meta = jsonRes.meta;
+        setTotalPages(meta.total_pages);
         console.log('Response received');
         setIsLoading(false);
       });
     window.scrollTo(0, 0);
-  }, [categoryId, sortType, searchValue]);
+  }, [categoryId, sortType, searchValue, currentPage]);
 
   const keyboards = items.map((obj) => <Kboard key={obj.id} {...obj} />);
   // .filter((obj) => {
@@ -51,16 +56,8 @@ const Home = ({ searchValue }) => {
       <Categories value={categoryId} onClickCategory={(i) => setCategoryId(i)} />
       <Sort value={sortType} onChangeSortType={(i) => setSortType(i)} />
 
-      <div className="container_cartochek">
-        {isLoading ? (
-          <>
-            <Loader />
-            {skeletons}
-          </>
-        ) : (
-          keyboards
-        )}
-      </div>
+      <div className="container_cartochek">{isLoading ? skeletons : keyboards}</div>
+      <Pagination onChangePage={(number) => setCurrentPage(number)} pageCount={totalPages} />
     </>
   );
 };
