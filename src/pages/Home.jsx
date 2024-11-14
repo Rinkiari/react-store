@@ -7,7 +7,11 @@ import Categories from '../components/Categories';
 import Sort from '../components/Sort.jsx';
 import Pagination from '../components/Pagination/index.jsx';
 
-const Home = ({ searchValue }) => {
+import { SearchContext } from '../App.js';
+
+const Home = () => {
+  const { searchValue } = React.useContext(SearchContext);
+
   const [items, setItems] = React.useState([]); // состояние товаров
   const [isLoading, setIsLoading] = React.useState(true); // состояние загрузки
   const [categoryId, setCategoryId] = React.useState(0); // состояние выбранной категории
@@ -18,7 +22,7 @@ const Home = ({ searchValue }) => {
     sortProperty: 'rating',
   }); // состояние выбранной сортировки
 
-  console.log('Now: ', categoryId, sortType); // проверка какая сейчас категория и сортировка
+  // console.log('Now: ', categoryId, sortType); // проверка какая сейчас категория и сортировка
 
   // Отслеживание изменения состояний и запрос на бекэнд с его обработкой
   React.useEffect(() => {
