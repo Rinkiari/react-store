@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { setCategoryId } from '../redux/slices/filterSlice.js';
+import { setCategoryId, setCurrentPage } from '../redux/slices/filterSlice.js';
 
 import '../scss/app.scss';
 
@@ -16,17 +16,20 @@ import { SearchContext } from '../App.js';
 
 const Home = () => {
   const dispatch = useDispatch();
-  const { categoryId, sort } = useSelector((state) => state.filter);
+  const { categoryId, sort, currentPage } = useSelector((state) => state.filter);
 
   const { searchValue } = React.useContext(SearchContext);
 
   const [items, setItems] = React.useState([]); // состояние товаров
   const [isLoading, setIsLoading] = React.useState(true); // состояние загрузки
-  const [currentPage, setCurrentPage] = React.useState(1); //состояние страницы
   const [totalPages, setTotalPages] = React.useState(1); // состояние общего количества страниц
 
   const onChangeCategory = (id) => {
     dispatch(setCategoryId(id));
+  };
+
+  const onChangePage = (number) => {
+    dispatch(setCurrentPage(number));
   };
 
   // console.log('Now: ', categoryId, sortType); // проверка какая сейчас категория и сортировка
@@ -80,7 +83,7 @@ const Home = () => {
       <Sort />
 
       <div className="container_cartochek">{isLoading ? skeletons : keyboards}</div>
-      <Pagination onChangePage={(number) => setCurrentPage(number)} pageCount={totalPages} />
+      <Pagination totalPages={totalPages} value={currentPage} onChangePage={onChangePage} />
     </>
   );
 };
