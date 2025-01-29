@@ -1,22 +1,27 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  notesArr: [],
+  categoryId: 0,
+  sort: {
+    name: 'популярности',
+    sortProperty: 'rating',
+  },
 };
 
-export const todoSlice = createSlice({
-  name: 'todolist',
+const filterSlice = createSlice({
+  name: 'filters',
   initialState,
   reducers: {
-    addNote: (state, action) => {
-      state.notesArr.push(action.payload); // usaem action.payload для передачи новой заметки
+    setCategoryId(state, action) {
+      state.categoryId = action.payload;
+      console.log('как выглядит функция', setCategoryId);
     },
-    delNote: (state, action) => {
-      state.notesArr = state.notesArr.filter((_, index) => index !== action.payload); // del по индексу
+    setSort(state, action) {
+      state.sort = action.payload;
     },
   },
 });
 
-export const { addNote, delNote } = todoSlice.actions;
+export const { setCategoryId, setSort } = filterSlice.actions;
 
-export default todoSlice.reducer;
+export default filterSlice.reducer;

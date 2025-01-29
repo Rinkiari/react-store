@@ -1,7 +1,7 @@
 import React from 'react';
 import '../scss/components/categories.scss';
 
-const Categories = ({ value, onClickCategory }) => {
+const Categories = ({ value, onChangeCategory }) => {
   const categoriesArr = ['Все', '100% размер', '80-75% размер', '65% размер'];
 
   return (
@@ -9,7 +9,7 @@ const Categories = ({ value, onClickCategory }) => {
       {categoriesArr.map((categoryName, i) => (
         <button
           className={`buttonn ${value === i ? 'active' : ''}`}
-          onClick={() => onClickCategory(i)}
+          onClick={() => onChangeCategory(i)}
           key={i}>
           {categoryName}
         </button>
