@@ -3,9 +3,12 @@ import shopping_cart from '../assets/shopping-cart.png';
 import '../scss/components/header.scss';
 import Search from './Search';
 
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 const Header = () => {
+  const { items, totalPrice } = useSelector((state) => state.cart);
+
   return (
     <div className="h_container">
       <Link to="/">
@@ -21,8 +24,9 @@ const Header = () => {
       <div className="right_side">
         <Link to="/cart">
           <button className="cart_batton">
-            <span>$520</span>
+            <span>${totalPrice}</span>
             <img src={shopping_cart} alt="cart" className="cartt" />
+            <span>{items.length}</span>
           </button>
         </Link>
       </div>

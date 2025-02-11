@@ -48,6 +48,8 @@
 .cart_batton {
   display: flex;
   align-items: center;
+  justify-content: space-around;
+  gap: 4px;
   background-color: #007bff;
   color: white;
   border: none;
@@ -60,8 +62,4 @@
 
 .cart_batton:hover {
   background-color: #0056b3;
-}
-
-.cart_batton span {
-  margin-right: 10px;
 }

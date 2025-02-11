@@ -1,10 +1,29 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-function Kboard({ imageUrl, title, switches, price }) {
+import { addItem } from '../../redux/slices/cartSlice';
+
+function Kboard({ id, imageUrl, title, switches, price }) {
+  const dispatch = useDispatch();
+  const cartItem = useSelector((state) => state.cart.items.find((obj) => obj.id === id));
+
   const [activeSwitch, setActiveSwitch] = React.useState(switches[0]);
+
+  const addedCount = cartItem ? cartItem.count : 0;
 
   const handleSwitchClick = (switchType) => {
     setActiveSwitch(switchType);
+  };
+
+  const onClickAdd = () => {
+    const item = {
+      id,
+      title,
+      price,
+      imageUrl,
+      switch: activeSwitch,
+    };
+    dispatch(addItem(item));
   };
 
   return (
@@ -27,7 +46,10 @@ function Kboard({ imageUrl, title, switches, price }) {
             ))}
           </div>
           <p style={styles.price}>${price}</p>
-          <button style={styles.button}>Добавить в корзину</button>
+          <button onClick={onClickAdd} style={styles.button}>
+            Добавить в корзину
+            {addedCount > 0 && <i>{addedCount}</i>}
+          </button>
         </div>
       </div>
     </div>
