@@ -21,7 +21,7 @@ function Kboard({ id, imageUrl, title, switches, price }) {
       title,
       price,
       imageUrl,
-      switch: activeSwitch,
+      switches: activeSwitch,
     };
     dispatch(addItem(item));
   };

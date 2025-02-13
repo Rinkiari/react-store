@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 
 const Header = () => {
   const { items, totalPrice } = useSelector((state) => state.cart);
+  const totalCount = items.reduce((sum, item) => sum + item.count, 0);
 
   return (
     <div className="h_container">
@@ -26,7 +27,7 @@ const Header = () => {
           <button className="cart_batton">
             <span>${totalPrice}</span>
             <img src={shopping_cart} alt="cart" className="cartt" />
-            <span>{items.length}</span>
+            <span>{totalCount}</span>
           </button>
         </Link>
       </div>
