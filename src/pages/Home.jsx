@@ -39,22 +39,26 @@ const Home = () => {
     dispatch(setCurrentPage(number));
   };
 
-  const fetchKboards = () => {
+  const fetchKboards = async () => {
     setIsLoading(true);
     const search = searchValue ? `&title=*${searchValue}` : '';
 
     console.log('making a request ...');
-    axios
-      .get(
+
+    try {
+      const res = await axios.get(
         `https://c09345baae5f2e48.mokky.dev/items?page=${currentPage}&limit=8&${
           categoryId > 0 ? `size=${categoryId}` : ''
         }&sortBy=${sort.sortProperty}${search}`,
-      )
-      .then((response) => {
-        setItems(response.data.items);
-        setTotalPages(response.data.meta.total_pages);
-        setIsLoading(false);
-      });
+      );
+      setItems(res.data.items);
+      setTotalPages(res.data.meta.total_pages);
+    } catch (error) {
+      console.log('AXIOS ERROR', error);
+      alert('Ошибка при получении клавиатур');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   // Если изменили параметры и был первый рендер
