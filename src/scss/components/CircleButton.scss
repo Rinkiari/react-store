@@ -1,0 +1,41 @@
+// Colors
+$teal-500: #14b8a6;
+$teal-800: #115e59;
+$teal-200: #5eead4;
+$teal-600: #0d9488;
+
+// Transition
+$transition-duration: 0.3s;
+$transition-easing: ease;
+
+.circle-button {
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background: none;
+  padding: 0;
+  transition: transform $transition-duration $transition-easing;
+
+  &:hover {
+    transform: rotate(90deg);
+  }
+
+  .circle-icon {
+    stroke: $teal-500;
+    fill: none;
+    transition: stroke $transition-duration $transition-easing,
+      fill $transition-duration $transition-easing;
+
+    // Hover state
+    .circle-button:hover & {
+      fill: $teal-800;
+    }
+
+    // Active state
+    .circle-button:active & {
+      stroke: $teal-200;
+      fill: $teal-600;
+      transition-duration: 0s;
+    }
+  }
+}
