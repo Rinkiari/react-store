@@ -49,4 +49,6 @@ const kboardSlice = createSlice({
 
 export const { setItems } = kboardSlice.actions;
 
+export const selectKboardData = (state) => state.kboard;
+
 export default kboardSlice.reducer;

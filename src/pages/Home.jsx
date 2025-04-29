@@ -16,7 +16,7 @@ import Sort, { list } from '../components/Sort.jsx';
 import Pagination from '../components/Pagination/index.jsx';
 
 import { SearchContext } from '../App.js';
-import { fetchKboards } from '../redux/slices/kboardSlice.js';
+import { fetchKboards, selectKboardData } from '../redux/slices/kboardSlice.js';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -24,9 +24,8 @@ const Home = () => {
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
 
-  const items = useSelector((state) => state.kboard.items);
-  const status = useSelector((state) => state.kboard.status);
-  const totalPages = useSelector((state) => state.kboard.totalPages);
+  const { items, totalPages, status } = useSelector(selectKboardData);
+
   console.log('Items from r: ', items);
 
   const { categoryId, sort, currentPage } = useSelector((state) => state.filter);
