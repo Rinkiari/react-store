@@ -15,7 +15,6 @@ import Categories from '../components/Categories';
 import Sort, { list } from '../components/Sort.jsx';
 import Pagination from '../components/Pagination/index.jsx';
 
-import { SearchContext } from '../App.js';
 import { fetchKboards, selectKboardData } from '../redux/slices/kboardSlice.js';
 
 const Home = () => {
@@ -28,9 +27,7 @@ const Home = () => {
 
   console.log('Items from r: ', items);
 
-  const { categoryId, sort, currentPage } = useSelector((state) => state.filter);
-
-  const { searchValue } = React.useContext(SearchContext);
+  const { categoryId, sort, currentPage, searchValue } = useSelector((state) => state.filter);
 
   const onChangeCategory = (id) => {
     dispatch(setCategoryId(id));
