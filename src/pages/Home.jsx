@@ -1,6 +1,5 @@
 import React from 'react';
 import qs from 'qs';
-import axios from 'axios';
 
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -9,6 +8,7 @@ import { setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filte
 
 import '../scss/app.scss';
 
+import ErrorCard from '../components/ErrorCard.jsx';
 import Kboard from '../components/KboardCard/';
 import Skeleton from '../components/KboardCard/Skeleton.jsx';
 import Categories from '../components/Categories';
@@ -16,6 +16,7 @@ import Sort, { list } from '../components/Sort.jsx';
 import Pagination from '../components/Pagination/index.jsx';
 
 import { SearchContext } from '../App.js';
+import { fetchKboards } from '../redux/slices/kboardSlice.js';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -23,13 +24,14 @@ const Home = () => {
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
 
+  const items = useSelector((state) => state.kboard.items);
+  const status = useSelector((state) => state.kboard.status);
+  const totalPages = useSelector((state) => state.kboard.totalPages);
+  console.log('Items from r: ', items);
+
   const { categoryId, sort, currentPage } = useSelector((state) => state.filter);
 
   const { searchValue } = React.useContext(SearchContext);
-
-  const [items, setItems] = React.useState([]); // состояние товаров
-  const [isLoading, setIsLoading] = React.useState(true); // состояние загрузки
-  const [totalPages, setTotalPages] = React.useState(1); // состояние общего количества страниц
 
   const onChangeCategory = (id) => {
     dispatch(setCategoryId(id));
@@ -39,26 +41,17 @@ const Home = () => {
     dispatch(setCurrentPage(number));
   };
 
-  const fetchKboards = async () => {
-    setIsLoading(true);
+  const getKboards = () => {
     const search = searchValue ? `&title=*${searchValue}` : '';
 
-    console.log('making a request ...');
-
-    try {
-      const res = await axios.get(
-        `https://c09345baae5f2e48.mokky.dev/items?page=${currentPage}&limit=8&${
-          categoryId > 0 ? `size=${categoryId}` : ''
-        }&sortBy=${sort.sortProperty}${search}`,
-      );
-      setItems(res.data.items);
-      setTotalPages(res.data.meta.total_pages);
-    } catch (error) {
-      console.log('AXIOS ERROR', error);
-      alert('Ошибка при получении клавиатур');
-    } finally {
-      setIsLoading(false);
-    }
+    dispatch(
+      fetchKboards({
+        search,
+        categoryId,
+        sort,
+        currentPage,
+      }),
+    );
   };
 
   // Если изменили параметры и был первый рендер
@@ -97,7 +90,7 @@ const Home = () => {
     window.scrollTo(0, 0);
 
     if (!isSearch.current) {
-      fetchKboards();
+      getKboards();
     }
 
     isSearch.current = false;
@@ -116,8 +109,14 @@ const Home = () => {
     <>
       <Categories value={categoryId} onChangeCategory={onChangeCategory} />
       <Sort />
+      {status === 'error' ? (
+        <div className="extra_cont">
+          <ErrorCard />
+        </div>
+      ) : (
+        <div className="container_cartochek">{status === 'loading' ? skeletons : keyboards}</div>
+      )}
 
-      <div className="container_cartochek">{isLoading ? skeletons : keyboards}</div>
       <Pagination totalPages={totalPages} value={currentPage} onChangePage={onChangePage} />
     </>
   );

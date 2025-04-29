@@ -21,6 +21,14 @@ a {
   border-radius: 8px;
 }
 
+.extra_cont {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
 .container_cartochek {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
