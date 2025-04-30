@@ -8,18 +8,18 @@ import Cart from './pages/Cart';
 import NotFound from './pages/NotFound';
 import FullKboard from './components/FullKboard';
 import { Route, Routes } from 'react-router-dom';
+import MainLayout from './layouts/MainLayout';
 
 function App() {
   return (
-    <div className="app-container">
-      <Header />
-      <Routes>
+    <Routes>
+      <Route path="/" element={<MainLayout />}>
         <Route path="/" element={<Home />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/kboard/:id" element={<FullKboard />} />
+        <Route path="cart" element={<Cart />} />
+        <Route path="kboard/:id" element={<FullKboard />} />
         <Route path="*" element={<NotFound />} />
-      </Routes>
-    </div>
+      </Route>
+    </Routes>
   );
 }
 export default App;
