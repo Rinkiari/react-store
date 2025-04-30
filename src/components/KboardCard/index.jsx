@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { addItem, selectCartItemById } from '../../redux/slices/cartSlice';
@@ -29,9 +30,13 @@ function Kboard({ id, imageUrl, title, switches, price }) {
   return (
     <div style={styles.card_wrapper}>
       <div style={styles.card}>
-        <img src={imageUrl} alt={title} style={styles.image} />
+        <Link to={`/kboard/${id}`}>
+          <img src={imageUrl} alt={title} style={styles.image} />
+        </Link>
         <div style={styles.content}>
-          <h2 style={styles.title}>{title}</h2>
+          <Link to={`/kboard/${id}`}>
+            <h2 style={styles.title}>{title}</h2>
+          </Link>
           <div style={styles.switchesPanel}>
             {switches.map((switchType, index) => (
               <span
