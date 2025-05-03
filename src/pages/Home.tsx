@@ -8,12 +8,12 @@ import { setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filte
 
 import '../scss/app.scss';
 
-import ErrorCard from '../components/ErrorCard.jsx';
-import Kboard from '../components/KboardCard/';
-import Skeleton from '../components/KboardCard/Skeleton.jsx';
-import Categories from '../components/Categories';
-import Sort, { list } from '../components/Sort.jsx';
-import Pagination from '../components/Pagination/index.jsx';
+import ErrorCard from '../components/ErrorCard.js';
+import Kboard from '../components/KboardCard/index.tsx';
+import Skeleton from '../components/KboardCard/Skeleton.js';
+import Categories from '../components/Categories.tsx';
+import Sort, { list } from '../components/Sort.tsx';
+import Pagination from '../components/Pagination/index.js';
 
 import { fetchKboards, selectKboardData } from '../redux/slices/kboardSlice.js';
 
@@ -27,20 +27,21 @@ const Home = () => {
 
   console.log('Items from r: ', items);
 
-  const { categoryId, sort, currentPage, searchValue } = useSelector((state) => state.filter);
+  const { categoryId, sort, currentPage, searchValue } = useSelector((state: any) => state.filter);
 
-  const onChangeCategory = (id) => {
-    dispatch(setCategoryId(id));
+  const onChangeCategory = (idx: number) => {
+    dispatch(setCategoryId(idx));
   };
 
-  const onChangePage = (number) => {
-    dispatch(setCurrentPage(number));
+  const onChangePage = (pageN: number) => {
+    dispatch(setCurrentPage(pageN));
   };
 
   const getKboards = () => {
     const search = searchValue ? `&title=*${searchValue}` : '';
 
     dispatch(
+      // @ts-ignore
       fetchKboards({
         search,
         categoryId,
@@ -92,7 +93,7 @@ const Home = () => {
     isSearch.current = false;
   }, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
-  const keyboards = items.map((obj) => <Kboard key={obj.id} {...obj} />);
+  const keyboards = items.map((obj: any) => <Kboard key={obj.id} {...obj} />);
   // .filter((obj) => {
   //   if (obj.title.toLowerCase().includes(searchValue.toLowerCase())) {
   //     return true;

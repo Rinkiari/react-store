@@ -1,11 +1,11 @@
-import React from 'react';
 import styled from 'styled-components';
 
 import styles from './NotFoundBlock.module.scss';
+import React from 'react';
 
 console.log(styles);
 
-const NotFoundBlock = () => {
+const NotFoundBlock: React.FC = () => {
   return (
     <StyledWrapper>
       <div className={styles.root}>
@@ -22,9 +22,7 @@ const NotFoundBlock = () => {
             <div className="tv">
               <div className="cruve">
                 <svg
-                  space="preserve"
                   viewBox="0 0 189.929 189.929"
-                  xlink="http://www.w3.org/1999/xlink"
                   xmlns="http://www.w3.org/2000/svg"
                   version="1.1"
                   className="curve_svg">

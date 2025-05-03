@@ -1,7 +1,12 @@
 import React from 'react';
 import '../scss/components/categories.scss';
 
-const Categories = ({ value, onChangeCategory }) => {
+type CategoriesProps = {
+  value: number;
+  onChangeCategory: any;
+};
+
+const Categories = ({ value, onChangeCategory }: CategoriesProps) => {
   const categoriesArr = ['Все', '100% размер', '80-75% размер', '65% размер'];
 
   return (

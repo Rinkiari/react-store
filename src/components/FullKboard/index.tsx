@@ -4,8 +4,13 @@ import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import styles from './FullKboard.module.scss';
 
-const FullKboard = () => {
-  const [keyboard, setKeyboard] = React.useState();
+const FullKboard: React.FC = () => {
+  const [keyboard, setKeyboard] = React.useState<{
+    imageUrl: string;
+    title: string;
+    switches: string[];
+    price: number;
+  }>();
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -23,13 +28,13 @@ const FullKboard = () => {
   }, []);
 
   if (!keyboard) {
-    return 'Загрузка...';
+    return <>Загрузка...</>;
   }
 
   return (
     <>
       <div className={styles.container_main}>
-        <img src={keyboard.imageUrl} className={styles.image_kb} />
+        <img src={keyboard.imageUrl} className={styles.image_kb} alt="imagee" />
         <h2>{keyboard.title}</h2>
         <h4>Switches: {keyboard.switches}</h4>
         <p>${keyboard.price}</p>

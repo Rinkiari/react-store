@@ -1,4 +1,3 @@
-import React from 'react';
 import '../scss/components/CircleButton.scss';
 
 const DecButton = () => {
