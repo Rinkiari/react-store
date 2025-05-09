@@ -3,7 +3,7 @@ import '../scss/components/categories.scss';
 
 type CategoriesProps = {
   value: number;
-  onChangeCategory: any;
+  onChangeCategory: (i: number) => void;
 };
 
 const Categories = ({ value, onChangeCategory }: CategoriesProps) => {

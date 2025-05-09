@@ -30,10 +30,8 @@ const Sort = () => {
   };
 
   React.useEffect(() => {
-    const handleClickOutside = (event: any) => {
-      const path = event.composedPath();
-
-      if (!path.includes(sortRef.current)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (sortRef.current && !event.composedPath().includes(sortRef.current)) {
         setVisibility(false);
       }
     };

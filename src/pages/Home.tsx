@@ -8,12 +8,12 @@ import { setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filte
 
 import '../scss/app.scss';
 
-import ErrorCard from '../components/ErrorCard.js';
+import ErrorCard from '../components/ErrorCard.tsx';
 import Kboard from '../components/KboardCard/index.tsx';
-import Skeleton from '../components/KboardCard/Skeleton.js';
+import Skeleton from '../components/KboardCard/Skeleton.tsx';
 import Categories from '../components/Categories.tsx';
 import Sort, { list } from '../components/Sort.tsx';
-import Pagination from '../components/Pagination/index.js';
+import Pagination from '../components/Pagination/index.tsx';
 
 import { fetchKboards, selectKboardData } from '../redux/slices/kboardSlice.js';
 
