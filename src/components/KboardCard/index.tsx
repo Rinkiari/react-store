@@ -3,7 +3,7 @@ import styles from './KboardCard.module.scss';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { addItem, selectCartItemById } from '../../redux/slices/cartSlice';
+import { addItem, CartItem, selectCartItemById } from '../../redux/slices/cartSlice';
 
 type KboardProps = {
   id: number;
@@ -26,12 +26,13 @@ function Kboard({ id, imageUrl, title, switches, price }: KboardProps) {
   };
 
   const onClickAdd = () => {
-    const item = {
+    const item: CartItem = {
       id,
       title,
       price,
       imageUrl,
       switches: activeSwitch,
+      count: 0,
     };
     dispatch(addItem(item));
   };

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { RootState } from '../store';
 
 export const fetchKboards = createAsyncThunk(
   'kboard/fetchKboardsStatus',
@@ -15,7 +16,21 @@ export const fetchKboards = createAsyncThunk(
   },
 );
 
-export const initialState = {
+type Kboard = {
+  id: number;
+  imageUrl: string;
+  title: string;
+  switches: string[];
+  price: number;
+};
+
+interface KboardSliceState {
+  items: Kboard[];
+  totalPages: number;
+  status: 'loading' | 'success' | 'error';
+}
+
+export const initialState: KboardSliceState = {
   items: [],
   totalPages: 1,
   status: 'loading', // loading | success | error
@@ -49,6 +64,6 @@ const kboardSlice = createSlice({
 
 export const { setItems } = kboardSlice.actions;
 
-export const selectKboardData = (state) => state.kboard;
+export const selectKboardData = (state: RootState) => state.kboard;
 
 export default kboardSlice.reducer;
