@@ -2,20 +2,6 @@ import axios from 'axios';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
-export const fetchKboards = createAsyncThunk(
-  'kboard/fetchKboardsStatus',
-  async (params, thunkAPI) => {
-    const { search, categoryId, sort, currentPage } = params;
-    console.log('STATE: ', thunkAPI.getState());
-    const { data } = await axios.get(
-      `https://c09345baae5f2e48.mokky.dev/items?page=${currentPage}&limit=8&${
-        categoryId > 0 ? `size=${categoryId}` : ''
-      }&sortBy=${sort.sortProperty}${search}`,
-    );
-    return data;
-  },
-);
-
 type Kboard = {
   id: number;
   imageUrl: string;
@@ -24,16 +10,53 @@ type Kboard = {
   price: number;
 };
 
+type FetchKboardsArgs = {
+  search: string;
+  categoryId: number;
+  sortP: string;
+  currentPage: number;
+};
+
+type ReturnedData = {
+  meta: {
+    total_items: number;
+    total_pages: number;
+    current_page: number;
+    per_page: number;
+    remaining_count: number;
+  };
+  items: Kboard[];
+};
+
+export const fetchKboards = createAsyncThunk<ReturnedData, FetchKboardsArgs>(
+  'kboard/fetchKboardsStatus',
+  async (params) => {
+    const { search, categoryId, sortP, currentPage } = params;
+    const { data } = await axios.get<ReturnedData>(
+      `https://c09345baae5f2e48.mokky.dev/items?page=${currentPage}&limit=8&${
+        categoryId > 0 ? `size=${categoryId}` : ''
+      }&sortBy=${sortP}${search}`,
+    );
+    return data;
+  },
+);
+
+export enum Status {
+  LOADING = 'loading',
+  SUCCESS = 'success',
+  ERROR = 'error',
+}
+
 interface KboardSliceState {
   items: Kboard[];
   totalPages: number;
-  status: 'loading' | 'success' | 'error';
+  status: Status;
 }
 
 export const initialState: KboardSliceState = {
   items: [],
   totalPages: 1,
-  status: 'loading', // loading | success | error
+  status: Status.LOADING, // loading | success | error
 };
 
 const kboardSlice = createSlice({
@@ -47,16 +70,16 @@ const kboardSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchKboards.pending, (state) => {
-        state.status = 'loading';
+        state.status = Status.LOADING;
         state.items = [];
       })
       .addCase(fetchKboards.fulfilled, (state, action) => {
         state.items = action.payload.items;
         state.totalPages = action.payload.meta.total_pages;
-        state.status = 'success';
+        state.status = Status.SUCCESS;
       })
       .addCase(fetchKboards.rejected, (state) => {
-        state.status = 'error';
+        state.status = Status.ERROR;
         state.items = [];
       });
   },

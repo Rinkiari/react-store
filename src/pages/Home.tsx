@@ -2,9 +2,15 @@ import React from 'react';
 import qs from 'qs';
 
 import { useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-import { setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filterSlice.js';
+import {
+  initialState,
+  setCategoryId,
+  setCurrentPage,
+  setFilters,
+  SortParams,
+} from '../redux/slices/filterSlice.ts';
 
 import '../scss/app.scss';
 
@@ -15,19 +21,20 @@ import Categories from '../components/Categories.tsx';
 import Sort, { list } from '../components/Sort.tsx';
 import Pagination from '../components/Pagination/index.tsx';
 
-import { fetchKboards, selectKboardData } from '../redux/slices/kboardSlice.js';
+import { fetchKboards, selectKboardData } from '../redux/slices/kboardSlice.ts';
+import { RootState, useAppDispatch } from '../redux/store.ts';
 
 const Home = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
 
   const { items, totalPages, status } = useSelector(selectKboardData);
 
-  console.log('Items from r: ', items);
-
-  const { categoryId, sort, currentPage, searchValue } = useSelector((state: any) => state.filter);
+  const { categoryId, sort, currentPage, searchValue } = useSelector(
+    (state: RootState) => state.filter,
+  );
 
   const onChangeCategory = (idx: number) => {
     dispatch(setCategoryId(idx));
@@ -39,13 +46,13 @@ const Home = () => {
 
   const getKboards = () => {
     const search = searchValue ? `&title=*${searchValue}` : '';
+    const sortP = sort.sortProperty;
 
     dispatch(
-      // @ts-ignore
       fetchKboards({
         search,
         categoryId,
-        sort,
+        sortP,
         currentPage,
       }),
     );
@@ -68,14 +75,23 @@ const Home = () => {
   // Если был первый рендер, то проверяем URl-параметры и сохраняем в reduxe
   React.useEffect(() => {
     if (window.location.search) {
-      const params = qs.parse(window.location.search.substring(1));
+      const params = qs.parse(window.location.search.substring(1)) as {
+        categoryId?: string;
+        currentPage?: string;
+        sortProperty?: string;
+        searchValue?: string;
+      };
+      console.log('params: ', params);
 
       const sort = list.find((obj) => obj.sortProperty === params.sortProperty);
+      console.log('sort :', sort);
 
       dispatch(
         setFilters({
-          ...params,
-          sort,
+          categoryId: Number(params.categoryId ?? initialState.categoryId),
+          currentPage: Number(params.currentPage ?? initialState.currentPage),
+          searchValue: params.searchValue ?? initialState.searchValue,
+          sort: (sort as SortParams) ?? initialState.sort,
         }),
       );
       isSearch.current = true;
