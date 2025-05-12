@@ -1,70 +1,84 @@
-# Getting Started with Create React App
+# 🛍️ React Store — Магазин клавиатур
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**React Store** — это демонстрационное одностраничное приложение (SPA), имитирующее интернет-магазин клавиатур. Оно разработано с использованием современных технологий фронтенда и демонстрирует функциональность поиска, фильтрации, пагинации и управления корзиной.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## ⚙️ О проекте
 
-### `npm start`
+* **Фронтенд** написан на **React 18** с использованием **TypeScript**.
+* **Бэкенд** реализован с помощью сервиса [Mokky.dev](https://mokky.dev/), который предоставляет REST API для получения списка товаров.
+* Приложение включает следующие страницы:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+  * Главная страница с каталогом товаров
+  * Страница корзины
+  * Страница 404 (Not Found)([GitHub][1])
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 🛠️ Используемые технологии
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* **React 18** — библиотека для построения пользовательских интерфейсов
+* **TypeScript** — статическая типизация JavaScript
+* **Redux Toolkit** — управление состоянием приложения
+* **React Router v6** — маршрутизация
+* **Axios** и **Fetch API** — для HTTP-запросов к API
+* **React Hooks** — хуки для управления состоянием и жизненным циклом компонентов
+* **Prettier** — форматирование кода
+* **CSS Modules / SCSS** — модульная стилизация компонентов
+* **React Content Loader** — скелетоны для загрузки контента
+* **React Pagination** — компонент пагинации
+* **Lodash.debounce** — оптимизация частоты вызовов функций (например, при поиске)([GitHub][2])
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🚀 Как запустить
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Установка зависимостей
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+npm install
+```
 
-### `npm run eject`
+### Запуск в режиме разработки
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+npm start
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Приложение будет доступно по адресу: [http://localhost:3000](http://localhost:3000)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Сборка проекта
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+npm run build
+```
 
-## Learn More
+Сборка будет создана в папке `build/`.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 📂 Структура проекта
 
-### Code Splitting
+```bash
+react-store/
+├── public/
+├── src/
+│   ├── components/       # Переиспользуемые компоненты
+│   ├── pages/            # Страницы приложения
+│   ├── redux/            # Слайсы и хранилище Redux
+│   ├── App.tsx
+│   └── index.tsx
+├── package.json
+└── tsconfig.json
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+(Не финальный вид)
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 📌 Дополнительная информация
 
-### Making a Progressive Web App
+* Проект не включает функциональность реальных покупок и оплаты.
+* Цель проекта — демонстрация навыков работы с современным стеком технологий фронтенда.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
